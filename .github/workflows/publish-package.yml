@@ -48,7 +48,7 @@ jobs:
         shell: bash
         env:
           SOURCE_REPOSITORY_TOKEN: ${{ secrets.SOURCE_REPOSITORY_TOKEN }}
-          PACKAGE_SOURCES_JSON: ${{ secrets.PACKAGE_SOURCES_JSON }}
+          PACKAGE_SOURCES_JSON: ${{ vars.PACKAGE_SOURCES_JSON }}
         run: |
           set -euo pipefail
           if [[ -z "${SOURCE_REPOSITORY_TOKEN}" ]]; then
@@ -67,7 +67,7 @@ jobs:
         id: publish
         env:
           SOURCE_REPOSITORY_TOKEN: ${{ secrets.SOURCE_REPOSITORY_TOKEN }}
-          PACKAGE_SOURCES_JSON: ${{ secrets.PACKAGE_SOURCES_JSON }}
+          PACKAGE_SOURCES_JSON: ${{ vars.PACKAGE_SOURCES_JSON }}
           TARGET_REPOSITORY_TOKEN: ${{ github.token }}
         run: node scripts/publish-release.mjs
 

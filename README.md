@@ -10,7 +10,7 @@ and public release assets.
 1. A private source repository publishes its internal GitHub Release.
 2. The source workflow sends a `package-release-published` repository dispatch
    containing only the package ID, Release ID, and tag.
-3. This repository resolves the private source from an encrypted mapping,
+3. This repository resolves the private source from a repository variable,
    validates the package, and reads the private Release through a read-only
    credential.
 4. The workflow copies release assets to a namespaced public Release.
@@ -78,18 +78,22 @@ Package IDs are globally unique within this repository. The target workflow
 serializes all registry writes, so source repositories never push to the shared
 branch directly.
 
-## Required secrets
+## Required configuration
 
-The publication workflow reads two GitHub Actions repository secrets:
+The publication workflow reads one GitHub Actions Secret and one Repository
+Variable:
 
 - `SOURCE_REPOSITORY_TOKEN`: a fine-grained token with read-only Contents
   access to registered private source repositories.
-- `PACKAGE_SOURCES_JSON`: an object mapping public package IDs to private
-  repository names, for example `{"pt-buddy":"private-owner/pt-buddy"}`.
+- `PACKAGE_SOURCES_JSON`: a Repository Variable mapping public package IDs to
+  private repository names, for example
+  `{"pt-buddy":"private-owner/pt-buddy"}`.
 
-Secret values must never be committed. The workflow does not run for pull
-requests, does not check out private source code, and masks the resolved private
-repository name before making API requests.
+The token must never be stored in a variable or committed. Repository names are
+configuration rather than credentials, so the mapping remains easy to inspect
+and update. The workflow does not run for pull requests, does not check out
+private source code, and masks the resolved private repository name before
+making API requests.
 
 ## Integration
 

@@ -21,9 +21,9 @@ Before the first release, register:
   source Release.
 
 Public package and platform configuration is stored in `config/packages.json`.
-The package-to-source mapping is stored separately in the encrypted
-`PACKAGE_SOURCES_JSON` Actions secret, so private repository names are not
-committed or added to public metadata.
+The package-to-source mapping is stored separately in the
+`PACKAGE_SOURCES_JSON` Repository Variable, so repository names remain easy to
+update without changing generated package metadata.
 
 ## Source Release contract
 
@@ -113,21 +113,21 @@ dispatch to another repository. A GitHub App installation token is preferred
 for long-term use; a fine-grained token with target Contents write permission
 can be used for initial integration.
 
-## Target secrets
+## Target configuration
 
-Configure these Actions repository secrets in `ai-gens/packages`:
+Configure this Actions repository secret in `ai-gens/packages`:
 
 ```text
 SOURCE_REPOSITORY_TOKEN
-PACKAGE_SOURCES_JSON
 ```
 
 `SOURCE_REPOSITORY_TOKEN` must have read-only Contents access to the registered
 private source repositories. It is used only to read Release metadata and
 download Release assets.
 
-`PACKAGE_SOURCES_JSON` keeps private repository names out of the public
-configuration:
+Configure `PACKAGE_SOURCES_JSON` as a Repository Variable. It keeps source
+repository mappings out of the generated package configuration while remaining
+easy to update:
 
 ```json
 {
@@ -135,12 +135,12 @@ configuration:
 }
 ```
 
-Set secret values through GitHub Settings or the GitHub CLI. Never store them in
-the repository:
+Set the credential as a Secret and the mapping as a Variable through GitHub
+Settings or the GitHub CLI:
 
 ```bash
 gh secret set SOURCE_REPOSITORY_TOKEN --repo ai-gens/packages
-gh secret set PACKAGE_SOURCES_JSON --repo ai-gens/packages
+gh variable set PACKAGE_SOURCES_JSON --repo ai-gens/packages
 ```
 
 The workflow masks the resolved private repository name before API requests and
@@ -151,7 +151,7 @@ never prints tokens, mappings, private API URLs, or private Release bodies.
 The target workflow performs these operations in order:
 
 1. Validate `client_payload` against the dispatch contract.
-2. Resolve the registered source repository from the encrypted source mapping.
+2. Resolve the registered source repository from the repository variable.
 3. Read the private Release by ID with a read-only source credential.
 4. Verify the tag, draft state, prerelease policy, changelog, and assets.
 5. Download every archive and verify its SHA-256 digest.
