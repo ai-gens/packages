@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "package": "pt-buddy",
+  "source": {
+    "repository": "private-owner/pt-buddy",
+    "releaseId": 123456789,
+    "tag": "v0.1.4"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "package": "pt-buddy",
+  "version": "0.1.4",
+  "publishedAt": "2026-07-31T12:00:00Z",
+  "prerelease": false,
+  "release": {
+    "tag": "pt-buddy-v0.1.4",
+    "url": "https://github.com/ai-gens/packages/releases/tag/pt-buddy-v0.1.4"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Changed\n\n- Added the public package registry integration."
+  },
+  "assets": [
+    {
+      "name": "pt-buddy-v0.1.4-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "size": 12345678,
+      "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.4/pt-buddy-v0.1.4-linux-amd64.zip"
+    },
+    {
+      "name": "pt-buddy-v0.1.4-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "size": 12345678,
+      "sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.4/pt-buddy-v0.1.4-macos-arm64.zip"
+    }
+  ]
+}
