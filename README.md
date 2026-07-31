@@ -8,9 +8,11 @@ and public release assets.
 ## Publishing model
 
 1. A private source repository publishes its internal GitHub Release.
-2. The source workflow sends a `package-release-published` repository dispatch.
-3. This repository validates the package and reads the private Release through
-   a read-only credential.
+2. The source workflow sends a `package-release-published` repository dispatch
+   containing only the package ID, Release ID, and tag.
+3. This repository resolves the private source from an encrypted mapping,
+   validates the package, and reads the private Release through a read-only
+   credential.
 4. The workflow copies release assets to a namespaced public Release.
 5. The workflow generates the version metadata, `latest.json`, and `index.json`.
 6. The generated files are committed by `github-actions[bot]`.
@@ -22,16 +24,27 @@ URLs, checksums, and versions are derived and verified by this repository.
 
 ```text
 .
+├── .github/
+│   └── workflows/
+│       └── publish-package.yml
+├── config/
+│   └── packages.json
 ├── index.json
 ├── packages/
 │   └── <package-id>/
 │       ├── latest.json
 │       └── versions/
 │           └── <version>.json
+├── scripts/
+│   ├── publish-release.mjs
+│   └── registry.mjs
 ├── schemas/
 │   ├── dispatch-payload.schema.json
 │   ├── index.schema.json
-│   └── package-release.schema.json
+│   ├── package-release.schema.json
+│   └── registry-config.schema.json
+├── tests/
+│   └── registry.test.mjs
 ├── examples/
 │   └── pt-buddy/
 │       ├── dispatch-payload.json
@@ -64,6 +77,19 @@ packages/pt-buddy/versions/0.1.4.json
 Package IDs are globally unique within this repository. The target workflow
 serializes all registry writes, so source repositories never push to the shared
 branch directly.
+
+## Required secrets
+
+The publication workflow reads two GitHub Actions repository secrets:
+
+- `SOURCE_REPOSITORY_TOKEN`: a fine-grained token with read-only Contents
+  access to registered private source repositories.
+- `PACKAGE_SOURCES_JSON`: an object mapping public package IDs to private
+  repository names, for example `{"pt-buddy":"private-owner/pt-buddy"}`.
+
+Secret values must never be committed. The workflow does not run for pull
+requests, does not check out private source code, and masks the resolved private
+repository name before making API requests.
 
 ## Integration
 

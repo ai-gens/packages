@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "packages": {
+    "pt-buddy": {
+      "publishPrereleases": false,
+      "assets": [
+        {
+          "template": "pt-buddy-v{version}-linux-amd64.zip",
+          "os": "linux",
+          "arch": "amd64",
+          "target": "x86_64-unknown-linux-musl"
+        },
+        {
+          "template": "pt-buddy-v{version}-linux-arm64.zip",
+          "os": "linux",
+          "arch": "arm64",
+          "target": "aarch64-unknown-linux-musl"
+        },
+        {
+          "template": "pt-buddy-v{version}-macos-amd64.zip",
+          "os": "macos",
+          "arch": "amd64",
+          "target": "x86_64-apple-darwin"
+        },
+        {
+          "template": "pt-buddy-v{version}-macos-arm64.zip",
+          "os": "macos",
+          "arch": "arm64",
+          "target": "aarch64-apple-darwin"
+        }
+      ]
+    }
+  }
+}

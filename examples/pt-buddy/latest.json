@@ -17,6 +17,7 @@
       "name": "pt-buddy-v0.1.4-linux-amd64.zip",
       "os": "linux",
       "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
       "size": 12345678,
       "sha256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef",
       "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.4/pt-buddy-v0.1.4-linux-amd64.zip"
@@ -25,6 +26,7 @@
       "name": "pt-buddy-v0.1.4-macos-arm64.zip",
       "os": "macos",
       "arch": "arm64",
+      "target": "aarch64-apple-darwin",
       "size": 12345678,
       "sha256": "abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789",
       "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.4/pt-buddy-v0.1.4-macos-arm64.zip"

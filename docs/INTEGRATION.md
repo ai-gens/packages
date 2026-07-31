@@ -20,9 +20,10 @@ Before the first release, register:
 - A read-only credential available to the target workflow for the private
   source Release.
 
-The package-to-source mapping must be checked before any private Release is
-read. If private repository names must not be public, keep that mapping in an
-encrypted Actions secret instead of a committed configuration file.
+Public package and platform configuration is stored in `config/packages.json`.
+The package-to-source mapping is stored separately in the encrypted
+`PACKAGE_SOURCES_JSON` Actions secret, so private repository names are not
+committed or added to public metadata.
 
 ## Source Release contract
 
@@ -60,15 +61,15 @@ The `client_payload` must conform to
   "schemaVersion": 1,
   "package": "pt-buddy",
   "source": {
-    "repository": "private-owner/pt-buddy",
     "releaseId": 123456789,
     "tag": "v0.1.4"
   }
 }
 ```
 
-Only identifiers are sent. Do not send release notes, asset URLs, checksums, or
-the output version as trusted values.
+Only the public package ID and private Release identifiers are sent. Do not send
+the private repository name, release notes, asset URLs, checksums, or the output
+version as trusted values.
 
 An example source workflow step:
 
@@ -86,7 +87,6 @@ An example source workflow step:
 
     jq -n \
       --arg package "${PACKAGE_ID}" \
-      --arg repository "${GITHUB_REPOSITORY}" \
       --arg tag "${RELEASE_TAG}" \
       --argjson release_id "${release_id}" \
       '{
@@ -95,7 +95,6 @@ An example source workflow step:
           schemaVersion: 1,
           package: $package,
           source: {
-            repository: $repository,
             releaseId: $release_id,
             tag: $tag
           }
@@ -109,15 +108,50 @@ An example source workflow step:
 ```
 
 `PACKAGES_DISPATCH_TOKEN` must be scoped to the target repository and stored as
-an Actions secret. A GitHub App installation token is preferred for long-term
-use; a fine-grained token can be used for initial integration.
+an Actions secret. The source repository's built-in `GITHUB_TOKEN` cannot
+dispatch to another repository. A GitHub App installation token is preferred
+for long-term use; a fine-grained token with target Contents write permission
+can be used for initial integration.
+
+## Target secrets
+
+Configure these Actions repository secrets in `ai-gens/packages`:
+
+```text
+SOURCE_REPOSITORY_TOKEN
+PACKAGE_SOURCES_JSON
+```
+
+`SOURCE_REPOSITORY_TOKEN` must have read-only Contents access to the registered
+private source repositories. It is used only to read Release metadata and
+download Release assets.
+
+`PACKAGE_SOURCES_JSON` keeps private repository names out of the public
+configuration:
+
+```json
+{
+  "pt-buddy": "private-owner/pt-buddy"
+}
+```
+
+Set secret values through GitHub Settings or the GitHub CLI. Never store them in
+the repository:
+
+```bash
+gh secret set SOURCE_REPOSITORY_TOKEN --repo ai-gens/packages
+gh secret set PACKAGE_SOURCES_JSON --repo ai-gens/packages
+```
+
+The workflow masks the resolved private repository name before API requests and
+never prints tokens, mappings, private API URLs, or private Release bodies.
 
 ## Target processing
 
 The target workflow performs these operations in order:
 
-1. Validate `client_payload` against the dispatch schema.
-2. Verify that the package ID is registered to the source repository.
+1. Validate `client_payload` against the dispatch contract.
+2. Resolve the registered source repository from the encrypted source mapping.
 3. Read the private Release by ID with a read-only source credential.
 4. Verify the tag, draft state, prerelease policy, changelog, and assets.
 5. Download every archive and verify its SHA-256 digest.
@@ -126,11 +160,16 @@ The target workflow performs these operations in order:
 8. Generate `packages/<package-id>/versions/<version>.json`.
 9. Update `packages/<package-id>/latest.json` for a newer stable version.
 10. Regenerate the sorted root `index.json`.
-11. Validate all generated JSON against the committed schemas.
+11. Run registry unit tests and validate all generated JSON.
 12. Commit and push once using the target repository's `GITHUB_TOKEN`.
 
 The public metadata must not contain the private repository name, private
 Release URL, source commit SHA, credentials, or internal-only release notes.
+
+The implemented workflow is
+`.github/workflows/publish-package.yml`. It supports both
+`repository_dispatch` and a manual `workflow_dispatch` retry with the package
+ID, Release ID, and tag.
 
 ## Concurrency and idempotency
 

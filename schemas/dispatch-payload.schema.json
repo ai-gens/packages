@@ -21,15 +21,10 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "repository",
         "releaseId",
         "tag"
       ],
       "properties": {
-        "repository": {
-          "type": "string",
-          "pattern": "^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
-        },
         "releaseId": {
           "type": "integer",
           "minimum": 1
