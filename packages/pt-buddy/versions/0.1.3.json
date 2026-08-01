@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "pt-buddy",
+  "version": "0.1.3",
+  "publishedAt": "2026-07-07T07:34:58Z",
+  "prerelease": false,
+  "release": {
+    "tag": "pt-buddy-v0.1.3",
+    "url": "https://github.com/ai-gens/packages/releases/tag/pt-buddy-v0.1.3"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Changes\n+ **Subscriptions: smarter search recovery.** Renamed the polling page to Subscription Settings, added a configurable search page size, and retry missing episodes with `E01`-style episode keywords when the broad search does not find a match.\n+ **Search results: MTeam download status.** Updated the MTeam SDK integration so search results can show whether a torrent is not downloaded, downloading, or already downloaded.\n+ **Downloads UI polish.** Long torrent titles and save paths now keep the original truncation style while supporting hover, keyboard focus, and tap-to-open full-text tooltips; download cards no longer show torrent hashes and use a tighter progress/speed/ETA layout.\n+ **Download routing and operations.** Added variety/seeding save paths with category-aware download routing, plus backup export and restore for app data.\n+ **fnTV and reverse-proxy support.** Added fnTV Intro Skipper auto intro/outro detection and support for hosting PT Buddy behind a reverse-proxy subpath.\n+ **Release and reliability fixes.** Shrunk release binaries with strip/thin-LTO/gzipped UI assets, defaulted release logging to info while honoring `RUST_LOG`, restored the embedded static asset placeholder test path, and added the missing `episode_correction_mode` migration."
+  },
+  "assets": [
+    {
+      "name": "pt-buddy-v0.1.3-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 8769592,
+      "sha256": "df3f55d2a6235de9ea7f8bc4744e55c7075b080ff8e47dd11e12e6681d99e2b4",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.3/pt-buddy-v0.1.3-linux-amd64.zip"
+    },
+    {
+      "name": "pt-buddy-v0.1.3-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 7768372,
+      "sha256": "0894bc711d007bf0ab322194b905041687a97febe772f57f85c97b1559f13a85",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.3/pt-buddy-v0.1.3-linux-arm64.zip"
+    },
+    {
+      "name": "pt-buddy-v0.1.3-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 8169083,
+      "sha256": "583265e1ae759600101d6a5561cc71ca809ff202229dba2a359cf374d04f4e60",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.3/pt-buddy-v0.1.3-macos-amd64.zip"
+    },
+    {
+      "name": "pt-buddy-v0.1.3-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 7589251,
+      "sha256": "f21024af5500776fb54784f6d71cbb1e2c97044256c19c4f1e2a91aeafb8b08b",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/pt-buddy-v0.1.3/pt-buddy-v0.1.3-macos-arm64.zip"
+    }
+  ]
+}
