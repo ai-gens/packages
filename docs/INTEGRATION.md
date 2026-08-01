@@ -33,7 +33,7 @@ The private source workflow must complete the Release before dispatching:
 2. Put the public changelog in the Release body.
 3. Upload all distributable archives.
 4. Upload or otherwise provide SHA-256 digests for every archive.
-5. Send the repository dispatch only after all assets are available.
+5. Start the target workflow only after all assets are available.
 
 Recommended asset names:
 
@@ -45,73 +45,66 @@ Recommended asset names:
 The target workflow derives the version from the source Release tag and rejects
 a version that does not conform to SemVer.
 
-## Dispatch event
+## Workflow dispatch
 
-Event type:
-
-```text
-package-release-published
-```
-
-The `client_payload` must conform to
-[`dispatch-payload.schema.json`](../schemas/dispatch-payload.schema.json):
+Trigger `.github/workflows/publish-package.yml` on the target repository's
+`main` branch with these string inputs:
 
 ```json
 {
-  "schemaVersion": 1,
-  "package": "pt-buddy",
-  "source": {
-    "releaseId": 123456789,
+  "ref": "main",
+  "inputs": {
+    "package": "pt-buddy",
+    "release_id": "123456789",
     "tag": "v0.1.4"
   }
 }
 ```
 
-Only the public package ID and private Release identifiers are sent. Do not send
-the private repository name, release notes, asset URLs, checksums, or the output
-version as trusted values.
+The target script normalizes these inputs and validates them against the
+internal dispatch contract. Do not send the private repository name, release
+notes, asset URLs, checksums, or the output version as trusted values.
 
 An example source workflow step:
 
 ```yaml
 - name: Notify public package registry
   env:
-    GH_TOKEN: ${{ secrets.PACKAGES_DISPATCH_TOKEN }}
+    SOURCE_GITHUB_TOKEN: ${{ github.token }}
+    PACKAGES_DISPATCH_TOKEN: ${{ secrets.PACKAGES_DISPATCH_TOKEN }}
     PACKAGE_ID: pt-buddy
     RELEASE_TAG: v0.1.4
   run: |
     release_id="$(
-      gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" \
-        --jq '.id'
+      GH_TOKEN="${SOURCE_GITHUB_TOKEN}" \
+        gh api "repos/${GITHUB_REPOSITORY}/releases/tags/${RELEASE_TAG}" \
+          --jq '.id'
     )"
 
     jq -n \
       --arg package "${PACKAGE_ID}" \
       --arg tag "${RELEASE_TAG}" \
-      --argjson release_id "${release_id}" \
+      --arg release_id "${release_id}" \
       '{
-        event_type: "package-release-published",
-        client_payload: {
-          schemaVersion: 1,
+        ref: "main",
+        inputs: {
           package: $package,
-          source: {
-            releaseId: $release_id,
-            tag: $tag
-          }
+          release_id: $release_id,
+          tag: $tag
         }
       }' > package-dispatch.json
 
-    gh api \
+    GH_TOKEN="${PACKAGES_DISPATCH_TOKEN}" gh api \
       --method POST \
-      "repos/ai-gens/packages/dispatches" \
+      "repos/ai-gens/packages/actions/workflows/publish-package.yml/dispatches" \
       --input package-dispatch.json
 ```
 
 `PACKAGES_DISPATCH_TOKEN` must be scoped to the target repository and stored as
 an Actions secret. The source repository's built-in `GITHUB_TOKEN` cannot
-dispatch to another repository. A GitHub App installation token is preferred
-for long-term use; a fine-grained token with target Contents write permission
-can be used for initial integration.
+dispatch to another repository. Use a fine-grained token limited to
+`ai-gens/packages` with Actions read/write and no Contents access. A GitHub App
+installation token is preferred when many source repositories are integrated.
 
 ## Target configuration
 
@@ -150,7 +143,7 @@ never prints tokens, mappings, private API URLs, or private Release bodies.
 
 The target workflow performs these operations in order:
 
-1. Validate `client_payload` against the dispatch contract.
+1. Normalize and validate the workflow inputs against the dispatch contract.
 2. Resolve the registered source repository from the repository variable.
 3. Read the private Release by ID with a read-only source credential.
 4. Verify the tag, draft state, prerelease policy, changelog, and assets.
@@ -166,10 +159,9 @@ The target workflow performs these operations in order:
 The public metadata must not contain the private repository name, private
 Release URL, source commit SHA, credentials, or internal-only release notes.
 
-The implemented workflow is
-`.github/workflows/publish-package.yml`. It supports both
-`repository_dispatch` and a manual `workflow_dispatch` retry with the package
-ID, Release ID, and tag.
+The implemented workflow is `.github/workflows/publish-package.yml`. Its primary
+integration is `workflow_dispatch`; the same package ID, Release ID, and tag can
+also be entered manually for retries.
 
 ## Concurrency and idempotency
 

@@ -8,8 +8,8 @@ and public release assets.
 ## Publishing model
 
 1. A private source repository publishes its internal GitHub Release.
-2. The source workflow sends a `package-release-published` repository dispatch
-   containing only the package ID, Release ID, and tag.
+2. The source workflow starts `publish-package.yml` through `workflow_dispatch`
+   with only the package ID, Release ID, and tag.
 3. This repository resolves the private source from a repository variable,
    validates the package, and reads the private Release through a read-only
    credential.
@@ -17,7 +17,7 @@ and public release assets.
 5. The workflow generates the version metadata, `latest.json`, and `index.json`.
 6. The generated files are committed by `github-actions[bot]`.
 
-The dispatch payload is only a reference to a Release. Release notes, download
+The workflow inputs are only a reference to a Release. Release notes, download
 URLs, checksums, and versions are derived and verified by this repository.
 
 ## Repository layout
