@@ -24,6 +24,7 @@ URLs, checksums, and versions are derived and verified by this repository.
 
 ```text
 .
+├── Cargo.toml
 ├── .github/
 │   └── workflows/
 │       └── publish-package.yml
@@ -38,6 +39,10 @@ URLs, checksums, and versions are derived and verified by this repository.
 ├── scripts/
 │   ├── publish-release.mjs
 │   └── registry.mjs
+├── sdk/
+│   └── rust/
+│       ├── Cargo.toml
+│       └── src/lib.rs
 ├── schemas/
 │   ├── dispatch-payload.schema.json
 │   ├── index.schema.json
@@ -99,5 +104,12 @@ making API requests.
 
 See [docs/INTEGRATION.md](docs/INTEGRATION.md) for the release contract,
 dispatch payload, permissions, validation, and retry behavior.
+
+## Consumer SDK
+
+The [Rust SDK](sdk/rust/README.md) lets other applications search the stable
+package index, read release metadata, check for updates, and download verified
+assets. It is a library in this repository's Cargo workspace and reads only
+public registry data.
 
 Examples are illustrative and are not part of the live registry.

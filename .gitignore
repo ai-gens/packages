@@ -40,3 +40,5 @@ build/
 .cache/
 .tmp/
 tmp/
+/target
+/.cargo/config.toml
