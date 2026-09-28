@@ -29,6 +29,76 @@
           "target": "aarch64-apple-darwin"
         }
       ]
+    },
+    "axon-master": {
+      "publishPrereleases": false,
+      "assets": [
+        {
+          "template": "axon-master-v{version}-linux-amd64.zip",
+          "os": "linux",
+          "arch": "amd64",
+          "target": "x86_64-unknown-linux-musl"
+        },
+        {
+          "template": "axon-master-v{version}-linux-arm64.zip",
+          "os": "linux",
+          "arch": "arm64",
+          "target": "aarch64-unknown-linux-musl"
+        },
+        {
+          "template": "axon-master-v{version}-linux-arm.zip",
+          "os": "linux",
+          "arch": "arm",
+          "target": "armv7-unknown-linux-musleabihf"
+        },
+        {
+          "template": "axon-master-v{version}-macos-amd64.zip",
+          "os": "macos",
+          "arch": "amd64",
+          "target": "x86_64-apple-darwin"
+        },
+        {
+          "template": "axon-master-v{version}-macos-arm64.zip",
+          "os": "macos",
+          "arch": "arm64",
+          "target": "aarch64-apple-darwin"
+        }
+      ]
+    },
+    "axon-slave": {
+      "publishPrereleases": false,
+      "assets": [
+        {
+          "template": "axon-slave-v{version}-linux-amd64.zip",
+          "os": "linux",
+          "arch": "amd64",
+          "target": "x86_64-unknown-linux-musl"
+        },
+        {
+          "template": "axon-slave-v{version}-linux-arm64.zip",
+          "os": "linux",
+          "arch": "arm64",
+          "target": "aarch64-unknown-linux-musl"
+        },
+        {
+          "template": "axon-slave-v{version}-linux-arm.zip",
+          "os": "linux",
+          "arch": "arm",
+          "target": "armv7-unknown-linux-musleabihf"
+        },
+        {
+          "template": "axon-slave-v{version}-macos-amd64.zip",
+          "os": "macos",
+          "arch": "amd64",
+          "target": "x86_64-apple-darwin"
+        },
+        {
+          "template": "axon-slave-v{version}-macos-arm64.zip",
+          "os": "macos",
+          "arch": "arm64",
+          "target": "aarch64-apple-darwin"
+        }
+      ]
     }
   }
 }
