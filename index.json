@@ -1,7 +1,12 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-07T07:34:58.000Z",
+  "generatedAt": "2026-09-29T03:39:11.000Z",
   "packages": [
+    {
+      "id": "axon-master",
+      "version": "0.1.6",
+      "latest": "packages/axon-master/latest.json"
+    },
     {
       "id": "pt-buddy",
       "version": "0.1.3",

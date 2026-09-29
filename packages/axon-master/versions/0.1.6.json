@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-master",
+  "version": "0.1.6",
+  "publishedAt": "2026-09-29T03:39:11Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-master-v0.1.6",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-master-v0.1.6"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Distribution\n\n- Removed ARMv7 builds and release assets. Published binaries now target\n  Linux and macOS on amd64 and arm64.\n\n## Features\n\n- Added the AI Gens package market and SDK-backed release downloads. Masters\n  and Slaves can select the latest or an exact published version for signed\n  managed updates; source releases dispatch publication to the public registry.\n- Added unified fnOS gateway authentication and session handling for the\n  embedded UI and gateway routes.\n\n## Fixes\n\n- Public TCP mappings now use a runtime-owned additive firewall chain. An\n  ingress listener no longer enables the ordinary firewall's global default\n  deny, so creating a mapping such as TCP 443 cannot silently block SSH or\n  unrelated host services. Upgraded Slaves remove the legacy enforcing\n  `AXON_SLAVE_FIREWALL_0` chain before reconciling mappings.\n- Masters upgrading from the legacy `127.0.0.1:5004` Core endpoint now detect\n  an authenticated pre-upgrade Core process still mapped from the replaced\n  binary, request its supervised restart, and wait for it to return on\n  `127.0.0.1:5204`. This also protects `core-ping` and `mesh-remove`, including\n  fnOS packages whose separately installed root service points at the package\n  binary.\n- Role-specific Core installation refuses to activate `axon-core` and\n  `axon-slave-core` in the same host network namespace. Core lifecycle dialogs\n  now display the backend's concrete failure instead of replacing every error\n  with a generic permission message.\n- Fake TCP carrier forwarding now inserts its owned jump at the front of the\n  host's effective `FORWARD` chain when xtables is available, so a later\n  fnOS/Docker policy drop cannot discard already admitted carrier traffic.\n- Fake TCP no longer marks a peer healthy from the unauthenticated outer\n  SYN/SYN-ACK exchange. Route selection now waits for the WireGuard identity\n  handshake, so a TCP-accepting black hole cannot starve a working Multi-Hub\n  fallback path.\n- Leaf-to-Hub routes and return routes from a secondary Hub now honor the\n  Leaf's ordered Hub assignment in both directions. A flaky destination-Hub\n  adjacency can no longer preempt the healthy primary backbone merely because\n  the destination itself is a direct peer.\n- Slave control retry delay resets after every established gRPC session, so a\n  later topology-driven disconnect retries in three seconds instead of\n  inheriting the maximum delay from failures before that session.\n- Removing an already absent nftables firewall chain is now idempotent,\n  including races where the last Axon table disappears during cleanup.\n- Fleet plans are canonicalized by node, peer, and route identity. Transport\n  validation compares membership and routes independently of vector order,\n  preventing unchanged topologies from being rejected during hot switching.\n- Reconciliation detects a committed peer set that conflicts with the\n  canonical plan at the same immutable revision and atomically advances to a\n  fresh revision before retrying. The same recovery handles a Core restart\n  whose inactive persisted revision rejects the canonical payload, repairing\n  fleets already affected by a disconnect/reconnect race.\n- Unavailable public Hubs remain recovery anchors when no online replacement\n  exists, preserving Fake TCP initiator/listener roles across restarts.\n  Persisted Hub plans are now immutable within one revision, so a recovery\n  membership change advances the revision before any online node is updated.\n- SSH key-exchange deadlines now actively shut down the underlying socket.\n  Cancelling a stalled russh handshake can no longer leave a detached\n  connection alive until the five-minute inactivity timeout.\n- Hub disconnect and reconnect events allocate distinct immutable revisions\n  even when the preceding revision is still pending. Transport rollback stays\n  active until the Master Core and every node acknowledge ABORT, and completed\n  node rollback is now reported as `Rolled back` instead of `Rolling back`.\n  Existing aborted transitions with a legacy pending Master row are repaired\n  during database migration."
+  },
+  "assets": [
+    {
+      "name": "axon-master-v0.1.6-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 10605706,
+      "sha256": "accf5940662569ba05753ce8e99afad91fd89db8f2f7fcf9336760afcacc105c",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.6/axon-master-v0.1.6-linux-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.6-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 9823264,
+      "sha256": "c1ff0384373bfb17c25aedc97da90e20b741cadef95b165a427109ab823a984f",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.6/axon-master-v0.1.6-linux-arm64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.6-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 9993279,
+      "sha256": "0e33e641821e63a2e48bd1939efbdef2cf8c24cab6d637030ffe6eaf97682d4f",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.6/axon-master-v0.1.6-macos-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.6-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 9365634,
+      "sha256": "94805f807347750d46b125400a6c9eeba3be4905bd3289402021c02f36eda17d",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.6/axon-master-v0.1.6-macos-arm64.zip"
+    }
+  ]
+}
