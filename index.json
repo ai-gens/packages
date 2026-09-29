@@ -8,6 +8,11 @@
       "latest": "packages/axon-master/latest.json"
     },
     {
+      "id": "axon-slave",
+      "version": "0.1.6",
+      "latest": "packages/axon-slave/latest.json"
+    },
+    {
       "id": "pt-buddy",
       "version": "0.1.3",
       "latest": "packages/pt-buddy/latest.json"
