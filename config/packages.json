@@ -46,12 +46,6 @@
           "target": "aarch64-unknown-linux-musl"
         },
         {
-          "template": "axon-master-v{version}-linux-arm.zip",
-          "os": "linux",
-          "arch": "arm",
-          "target": "armv7-unknown-linux-musleabihf"
-        },
-        {
           "template": "axon-master-v{version}-macos-amd64.zip",
           "os": "macos",
           "arch": "amd64",
@@ -79,12 +73,6 @@
           "os": "linux",
           "arch": "arm64",
           "target": "aarch64-unknown-linux-musl"
-        },
-        {
-          "template": "axon-slave-v{version}-linux-arm.zip",
-          "os": "linux",
-          "arch": "arm",
-          "target": "armv7-unknown-linux-musleabihf"
         },
         {
           "template": "axon-slave-v{version}-macos-amd64.zip",
