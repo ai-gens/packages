@@ -7,7 +7,9 @@ public `ai-gens/packages` repository owns publication and registry generation.
 Source repositories must not clone or push to this repository.
 
 This separation provides one serialized writer for shared files and prevents
-concurrent source releases from conflicting on `index.json`.
+concurrent source releases from conflicting on `index.json`. The publishing
+job checks out the latest `main` after acquiring the concurrency slot; the
+dispatch event SHA may predate metadata committed by an earlier queued job.
 
 ## Registration
 

@@ -37,6 +37,8 @@ jobs:
       - name: Check out registry
         uses: actions/checkout@v6
         with:
+          # Dispatch events capture an older SHA while waiting for the writer lock.
+          ref: main
           fetch-depth: 0
 
       - name: Set up Node.js
