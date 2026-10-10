@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-master",
+  "version": "0.1.7",
+  "publishedAt": "2026-10-10T08:53:04Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-master-v0.1.7",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-master-v0.1.7"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Features\n\n- Unified Application Center creation for local applications and exact public\n  store releases. Imports create drafts with linked versions and mapped native\n  binaries; publication remains an explicit action.\n- Consolidated HTTP proxies and TCP forwarding in Super Gateway, with shared\n  status labels and creation controls.\n- Added resumable signed fleet updates that update Master/Core first and then\n  Slave/Core pairs, including offline and newly connected nodes.\n- Added a mesh interconnection switch, enabled by default, allowing all ports\n  and protocols between authenticated overlay addresses. Disabling it restores\n  the existing protected-control-port and established-reply policy.\n\n## Fixes\n\n- Corrected mesh firewall rules that prevented ICMP and other node-to-node\n  service traffic, while retaining isolation for physical and LAN destinations.\n- Confined list horizontal scrolling to the table container without changing\n  natural table widths; the sidebar and page no longer expand around wide lists.\n- Fixed narrow-screen application details, market selection, and node enrollment\n  forms with long names, versions, and addresses in both supported languages.\n- Removed redundant system-update and workflow hints from management lists."
+  },
+  "assets": [
+    {
+      "name": "axon-master-v0.1.7-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 10885154,
+      "sha256": "71c852f6ed77f14f7f0a49e6f5564b9c2a84bbfeb97204a7a28b783947255c69",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.7/axon-master-v0.1.7-linux-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.7-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 10081356,
+      "sha256": "615173caf1c4105f434b3c54413589c6a9b17b624623b986101c5c3e911d97fb",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.7/axon-master-v0.1.7-linux-arm64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.7-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 10261364,
+      "sha256": "7c1ce306090aac632f05b405961f87f02609299d46c08c84b729049d95f7afed",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.7/axon-master-v0.1.7-macos-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.7-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 9625452,
+      "sha256": "9ababae9223a0bc869ea9c73ee23c5c7a1503ad96d2ce5408302c088767c33fb",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.7/axon-master-v0.1.7-macos-arm64.zip"
+    }
+  ]
+}
