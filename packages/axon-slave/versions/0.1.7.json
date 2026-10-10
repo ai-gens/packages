@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-slave",
+  "version": "0.1.7",
+  "publishedAt": "2026-10-10T08:53:04Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-slave-v0.1.7",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-slave-v0.1.7"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Features\n\n- Unified Application Center creation for local applications and exact public\n  store releases. Imports create drafts with linked versions and mapped native\n  binaries; publication remains an explicit action.\n- Consolidated HTTP proxies and TCP forwarding in Super Gateway, with shared\n  status labels and creation controls.\n- Added resumable signed fleet updates that update Master/Core first and then\n  Slave/Core pairs, including offline and newly connected nodes.\n- Added a mesh interconnection switch, enabled by default, allowing all ports\n  and protocols between authenticated overlay addresses. Disabling it restores\n  the existing protected-control-port and established-reply policy.\n\n## Fixes\n\n- Corrected mesh firewall rules that prevented ICMP and other node-to-node\n  service traffic, while retaining isolation for physical and LAN destinations.\n- Confined list horizontal scrolling to the table container without changing\n  natural table widths; the sidebar and page no longer expand around wide lists.\n- Fixed narrow-screen application details, market selection, and node enrollment\n  forms with long names, versions, and addresses in both supported languages.\n- Removed redundant system-update and workflow hints from management lists."
+  },
+  "assets": [
+    {
+      "name": "axon-slave-v0.1.7-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 3527476,
+      "sha256": "6c83cd9fbb5de39a57387396396a407b53ffa27222d7b6febf0b07940f7bae14",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.7/axon-slave-v0.1.7-linux-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.7-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 3192570,
+      "sha256": "5d771abce633fa2d3247815f7459524c3cf44d73a4f3ea292fb041b2f40300bc",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.7/axon-slave-v0.1.7-linux-arm64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.7-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 3171934,
+      "sha256": "d2071bb41e5fb51c798cc196344178639eefdab9c4ff4ecfcba0403554585cf7",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.7/axon-slave-v0.1.7-macos-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.7-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 2947718,
+      "sha256": "df0685e4450163aae659769096505504fa8bbfe2670051dd1f1e33ea1ff3d940",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.7/axon-slave-v0.1.7-macos-arm64.zip"
+    }
+  ]
+}
