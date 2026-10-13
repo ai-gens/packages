@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-slave",
+  "version": "0.1.9",
+  "publishedAt": "2026-10-13T08:54:17Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-slave-v0.1.9",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-slave-v0.1.9"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Fixes\n\n- Prevented simultaneous UoT Hub connections from replacing authenticated\n  return paths. Both directions now use keepalive below the path deadline,\n  including legacy Core configurations. Connect attempts and shutdown remain\n  bounded while output queues are backpressured.\n- Added verified AXF1 Fake TCP datagram framing to tolerate middlebox segment\n  splitting and coalescing, with raw-format legacy handshake negotiation.\n- Detect TCP middleboxes using a capability option and cookie-bound carrier\n  negotiation. Those paths use bounded cumulative ACK recovery, ordered\n  fragment delivery, and retransmission; native Fake TCP peers retain datagram\n  loss semantics. Core status identifies TCP compatibility peers.\n- Corrected Fake TCP TUN receive capacity and reserved the complete framing\n  overhead in the overlay MTU. A stalled send direction and outer FIN now\n  retire the carrier tuple instead of remaining behind incoming keepalive.\n- Added a time-bounded carrier verification example using a separate subnet,\n  independent root-private identities, and the production Core runtime.\n\n## Compatibility\n\n- Upgrade every Master/Slave and its Core before testing framed Fake TCP\n  through a TCP proxy. Legacy raw peers still require preserved datagram\n  boundaries. Mesh identities and signed update authorization are unchanged."
+  },
+  "assets": [
+    {
+      "name": "axon-slave-v0.1.9-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 3548340,
+      "sha256": "200d7f528809b4c6dcd386558316d3c473c61a37fd2a9b87389cc286e602483f",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.9/axon-slave-v0.1.9-linux-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.9-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 3209961,
+      "sha256": "f9f74011c17e19b473379def1f9fb2aea3e91755c00b3e8971773950158df598",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.9/axon-slave-v0.1.9-linux-arm64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.9-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 3193242,
+      "sha256": "b988ed304ac6a7b8eed9e233d45c62071caee6f40387c835718c77f27e506be1",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.9/axon-slave-v0.1.9-macos-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.9-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 2963534,
+      "sha256": "88753a660bcd7e8141cddfc9a3a1b277911a3d48d1a52b5bae7b32fb9a6f8049",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.9/axon-slave-v0.1.9-macos-arm64.zip"
+    }
+  ]
+}
