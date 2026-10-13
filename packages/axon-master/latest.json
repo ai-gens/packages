@@ -1,53 +1,53 @@
 {
   "schemaVersion": 1,
   "package": "axon-master",
-  "version": "0.1.8",
-  "publishedAt": "2026-10-13T05:08:01Z",
+  "version": "0.1.9",
+  "publishedAt": "2026-10-13T08:54:17Z",
   "prerelease": false,
   "release": {
-    "tag": "axon-master-v0.1.8",
-    "url": "https://github.com/ai-gens/packages/releases/tag/axon-master-v0.1.8"
+    "tag": "axon-master-v0.1.9",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-master-v0.1.9"
   },
   "changelog": {
     "format": "markdown",
-    "content": "## Fixes\n\n- Preserved partially read UoT frame headers and payloads while the opposite\n  direction sends, preventing stream desynchronization and reconnect loops.\n- Separated UoT socket and Core TUN read/write pumps so backpressure in one\n  direction cannot prevent draining the other direction. The TUN fix also\n  applies to the hidden Fake TCP carrier.\n- Enabled TCP_NODELAY and combined UoT frame headers and payloads in vectored\n  writes while preserving progress across short writes.\n- Preferred authenticated direct routes to connected peers in both directions,\n  avoiding unnecessary transit through a slower primary Hub while preserving\n  ordered Hub failover and routes between Leaves with different assignments.\n\n## Compatibility\n\n- Fake TCP requires packet boundaries to survive between nodes. Transparent\n  TCP proxies may split or combine packets even with a DIRECT outbound rule;\n  exclude mesh carrier connections from proxy interception or use UoT.\n- These fixes retain the existing mesh and signed-update wire protocols, so\n  Master and Slave/Core pairs can be updated through the existing fleet flow."
+    "content": "## Fixes\n\n- Prevented simultaneous UoT Hub connections from replacing authenticated\n  return paths. Both directions now use keepalive below the path deadline,\n  including legacy Core configurations. Connect attempts and shutdown remain\n  bounded while output queues are backpressured.\n- Added verified AXF1 Fake TCP datagram framing to tolerate middlebox segment\n  splitting and coalescing, with raw-format legacy handshake negotiation.\n- Detect TCP middleboxes using a capability option and cookie-bound carrier\n  negotiation. Those paths use bounded cumulative ACK recovery, ordered\n  fragment delivery, and retransmission; native Fake TCP peers retain datagram\n  loss semantics. Core status identifies TCP compatibility peers.\n- Corrected Fake TCP TUN receive capacity and reserved the complete framing\n  overhead in the overlay MTU. A stalled send direction and outer FIN now\n  retire the carrier tuple instead of remaining behind incoming keepalive.\n- Added a time-bounded carrier verification example using a separate subnet,\n  independent root-private identities, and the production Core runtime.\n\n## Compatibility\n\n- Upgrade every Master/Slave and its Core before testing framed Fake TCP\n  through a TCP proxy. Legacy raw peers still require preserved datagram\n  boundaries. Mesh identities and signed update authorization are unchanged."
   },
   "assets": [
     {
-      "name": "axon-master-v0.1.8-linux-amd64.zip",
+      "name": "axon-master-v0.1.9-linux-amd64.zip",
       "os": "linux",
       "arch": "amd64",
       "target": "x86_64-unknown-linux-musl",
-      "size": 10888978,
-      "sha256": "c466eb967570f4fb3fd6c1ba559dee32e4592b0d8c51ad02448b02185eb4490d",
-      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.8/axon-master-v0.1.8-linux-amd64.zip"
+      "size": 10913010,
+      "sha256": "2400f7f7db0bd93451cb026338e861a40a9163f459b29b0f7cfc2bf5f41dc7a6",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.9/axon-master-v0.1.9-linux-amd64.zip"
     },
     {
-      "name": "axon-master-v0.1.8-linux-arm64.zip",
+      "name": "axon-master-v0.1.9-linux-arm64.zip",
       "os": "linux",
       "arch": "arm64",
       "target": "aarch64-unknown-linux-musl",
-      "size": 10080463,
-      "sha256": "f3132e62a48ca42416f8f5eea3f00954429ee418668829c3aef73ee08a2d3243",
-      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.8/axon-master-v0.1.8-linux-arm64.zip"
+      "size": 10097778,
+      "sha256": "995a364a2a826b982f2f518e8b774e04e80256036ea57fb555c1171d848c194b",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.9/axon-master-v0.1.9-linux-arm64.zip"
     },
     {
-      "name": "axon-master-v0.1.8-macos-amd64.zip",
+      "name": "axon-master-v0.1.9-macos-amd64.zip",
       "os": "macos",
       "arch": "amd64",
       "target": "x86_64-apple-darwin",
-      "size": 10261905,
-      "sha256": "c649b2228b6e0b6ee44589c23fcc4a8d21e8daa87e345dc4c8ef6c1523026c86",
-      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.8/axon-master-v0.1.8-macos-amd64.zip"
+      "size": 10286941,
+      "sha256": "d29cca0398f90da52bc8d9fa320f256919f5184a83db70f225e275cbdaf26346",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.9/axon-master-v0.1.9-macos-amd64.zip"
     },
     {
-      "name": "axon-master-v0.1.8-macos-arm64.zip",
+      "name": "axon-master-v0.1.9-macos-arm64.zip",
       "os": "macos",
       "arch": "arm64",
       "target": "aarch64-apple-darwin",
-      "size": 9625822,
-      "sha256": "3dd8c9e6af5763e906e75f36168a7720890cbf55a43387380ea6c5fbfabc4a24",
-      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.8/axon-master-v0.1.8-macos-arm64.zip"
+      "size": 9646110,
+      "sha256": "aaaa00178cc19c3b5fc537ec1793c6eb24d1cdf4996935b237eb0fce8875802e",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.9/axon-master-v0.1.9-macos-arm64.zip"
     }
   ]
 }

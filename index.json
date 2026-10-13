@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-10-13T05:08:01.000Z",
+  "generatedAt": "2026-10-13T08:54:17.000Z",
   "packages": [
     {
       "id": "axon-master",
-      "version": "0.1.8",
+      "version": "0.1.9",
       "latest": "packages/axon-master/latest.json"
     },
     {
