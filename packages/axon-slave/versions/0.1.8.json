@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-slave",
+  "version": "0.1.8",
+  "publishedAt": "2026-10-13T05:08:01Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-slave-v0.1.8",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-slave-v0.1.8"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Fixes\n\n- Preserved partially read UoT frame headers and payloads while the opposite\n  direction sends, preventing stream desynchronization and reconnect loops.\n- Separated UoT socket and Core TUN read/write pumps so backpressure in one\n  direction cannot prevent draining the other direction. The TUN fix also\n  applies to the hidden Fake TCP carrier.\n- Enabled TCP_NODELAY and combined UoT frame headers and payloads in vectored\n  writes while preserving progress across short writes.\n- Preferred authenticated direct routes to connected peers in both directions,\n  avoiding unnecessary transit through a slower primary Hub while preserving\n  ordered Hub failover and routes between Leaves with different assignments.\n\n## Compatibility\n\n- Fake TCP requires packet boundaries to survive between nodes. Transparent\n  TCP proxies may split or combine packets even with a DIRECT outbound rule;\n  exclude mesh carrier connections from proxy interception or use UoT.\n- These fixes retain the existing mesh and signed-update wire protocols, so\n  Master and Slave/Core pairs can be updated through the existing fleet flow."
+  },
+  "assets": [
+    {
+      "name": "axon-slave-v0.1.8-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 3530806,
+      "sha256": "198e0622cdf9ac2a2d7e8422e20708f6c70c46e07527db7a6bb4ce8dffbb4403",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.8/axon-slave-v0.1.8-linux-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.8-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 3195380,
+      "sha256": "a8cab07ad8264735ee84117b59dd56e32ebe2757c52eb29c3621eead17ac7dba",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.8/axon-slave-v0.1.8-linux-arm64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.8-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 3172594,
+      "sha256": "40000a83b887426ea19698dd5819f135a48761862240eba6c4d0bb8d153c9a61",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.8/axon-slave-v0.1.8-macos-amd64.zip"
+    },
+    {
+      "name": "axon-slave-v0.1.8-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 2950348,
+      "sha256": "a785b3c306b000d004f0916582d5ad6f5a1f8eee68a0be6f363eb99844f13aa4",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-slave-v0.1.8/axon-slave-v0.1.8-macos-arm64.zip"
+    }
+  ]
+}
