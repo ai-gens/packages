@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "package": "axon-master",
+  "version": "0.1.10",
+  "publishedAt": "2026-10-14T03:15:06Z",
+  "prerelease": false,
+  "release": {
+    "tag": "axon-master-v0.1.10",
+    "url": "https://github.com/ai-gens/packages/releases/tag/axon-master-v0.1.10"
+  },
+  "changelog": {
+    "format": "markdown",
+    "content": "## Fixes\n\n- Use kernel TCP sockets for Fake TCP paths intercepted by stream proxies.\n  Core routes native AXF1 and exact legacy datagram SYNs to the hidden carrier,\n  while proxy connections use an AXF1 listener on the same public port.\n- Preserve one WireGuard engine and authenticated adjacency per peer across\n  native and kernel carrier paths. Socket identity never authorizes a node.\n- Apply backpressure before compatibility output queues fill, run socket pumps\n  independently, bound blocked writes, and abort all pumps during shutdown.\n- Preserve TCP compatibility failure diagnostics and include control connection\n  error chains and reconnect delays in Slave host logs.\n- Verify sustained, concurrent transfers on the NAS, Hong Kong, and Beijing\n  hosts; native Fake TCP remains in use for direct public Hub connections.\n\n## Compatibility\n\n- Upgrade every Core before testing Fake TCP through a TCP middlebox. Keep the\n  fleet on native UDP or UoT during its signed update."
+  },
+  "assets": [
+    {
+      "name": "axon-master-v0.1.10-linux-amd64.zip",
+      "os": "linux",
+      "arch": "amd64",
+      "target": "x86_64-unknown-linux-musl",
+      "size": 10957190,
+      "sha256": "4c2fd3505cf07686ac22874274e9046c2b4fe06d8aee98526b14b47413bd6776",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.10/axon-master-v0.1.10-linux-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.10-linux-arm64.zip",
+      "os": "linux",
+      "arch": "arm64",
+      "target": "aarch64-unknown-linux-musl",
+      "size": 10140191,
+      "sha256": "32e12eecfd601505d2191080ab2149eaffaaad2138c04e93929a20fb4b09d001",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.10/axon-master-v0.1.10-linux-arm64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.10-macos-amd64.zip",
+      "os": "macos",
+      "arch": "amd64",
+      "target": "x86_64-apple-darwin",
+      "size": 10329180,
+      "sha256": "c9fb0ff7ce32baa66a739f11371c3e25eb34b664e9019a745f77cf556dde18e8",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.10/axon-master-v0.1.10-macos-amd64.zip"
+    },
+    {
+      "name": "axon-master-v0.1.10-macos-arm64.zip",
+      "os": "macos",
+      "arch": "arm64",
+      "target": "aarch64-apple-darwin",
+      "size": 9685393,
+      "sha256": "07e0874dbbcacc52092094807ce3e04f772f09203528eb1496756469aa07c62f",
+      "downloadUrl": "https://github.com/ai-gens/packages/releases/download/axon-master-v0.1.10/axon-master-v0.1.10-macos-arm64.zip"
+    }
+  ]
+}
